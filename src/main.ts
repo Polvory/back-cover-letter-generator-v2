@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as cors from 'cors';
 
 async function bootstrap() {
-  const PORT = process.env.PORT || 3001;
+  const PORT = process.env.PORT || 3007;
   const app = await NestFactory.create(AppModule);
   const prefix = 'bakv2';
   app.setGlobalPrefix(prefix);
