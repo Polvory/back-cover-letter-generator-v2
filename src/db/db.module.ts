@@ -2,6 +2,10 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { getDbConfig } from '../config/db.config';
 import { Users } from '../users/users.model';
+import { Letters } from '../letters/letters.model';
+import { LettersToUser } from '../letters/lettersToUser';
+import { Question } from '../questions/question.model';
+import { Topics } from '../topics/topics.model';
 
 @Module({
     imports: [
@@ -14,7 +18,11 @@ import { Users } from '../users/users.model';
                 password: getDbConfig().password,
                 database: getDbConfig().database,
                 models: [
-                    Users
+                    Users,
+                    Letters,
+                    LettersToUser,
+                    Question,
+                    Topics
                 ],
                 logging: false,
                 autoLoadModels: true
