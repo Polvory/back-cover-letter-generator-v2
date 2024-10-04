@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { DbModule } from './db/db.module';
-import { UsersService } from './users/users.service';
-import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
-
+import { BotModule } from './bot/bot.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { LettersModule } from './letters/letters.module';
+import { QuestionsModule } from './questions/questions.module';
+import { TopicsModule } from './topics/topics.module';
 
 @Module({
-  imports: [DbModule, UsersModule],
+  imports: [EventEmitterModule.forRoot(), // Подключаем модуль событий
+    DbModule, UsersModule, BotModule, LettersModule, QuestionsModule, TopicsModule],
   controllers: [],
   providers: [],
 })

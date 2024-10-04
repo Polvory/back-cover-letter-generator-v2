@@ -1,7 +1,7 @@
 import { BadRequestException, Body, Controller, Get, InternalServerErrorException, Logger, Post, Put, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
-import { createUser } from './dto/users.dto';
+import { createUser, editeUser } from './dto/users.dto';
 
 
 
@@ -20,6 +20,39 @@ export class UsersController {
     @Get('/get')
     async getCardUsers() {
         return await this.UsersService.getAll();
+    }
+
+    @ApiOperation({ summary: 'Получить пользователей по id' })
+    @ApiResponse({ status: 200 })
+    @Get('/get/by/id')
+    async getUsersgetById(@Query('user_tg_id') user_tg_id: string) {
+        this.logger.log(`Получаем пользоваетля id: ${user_tg_id}`)
+        return await this.UsersService.getById(user_tg_id);
+    }
+
+
+    @ApiOperation({ summary: 'Заполняем опрос первого входа' })
+    @ApiResponse({ status: 201 })
+    @Post('/edite/onebording')
+    async editeOnebording(@Body() dto: editeUser) {
+        this.logger.log(`Заполняем опрос первого входа: ${dto.user_tg_id}`)
+        return await this.UsersService.editeOnebording(dto);
+    }
+
+
+
+    @ApiOperation({ summary: 'Редактировать пользователея' })
+    @ApiResponse({ status: 200 })
+    @Put('/edite')
+    async editeUsersById(@Body() dto: editeUser) {
+        return await this.UsersService.editeById(dto);
+    }
+
+    @ApiOperation({ summary: 'Выдать премиум' })
+    @ApiResponse({ status: 200 })
+    @Put('/get/premium')
+    async getPremium(@Query('user_tg_id') user_tg_id: string) {
+        return await this.UsersService.getPremium(String(user_tg_id));
     }
 
 
